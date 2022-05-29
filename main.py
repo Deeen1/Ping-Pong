@@ -50,6 +50,12 @@ lose2 = font.render('PLAYER 2 LOSE', True, (180, 0, 0))
 speed_x = 3
 speed_y = 3
 
+score_1 = 0
+score_2 = 0
+
+win1 = font.render('PLAYER 1 WIN!', True, (180, 0, 0))
+win2 = font.render('PLAYER 2 WIN!', True, (180, 0, 0))
+
 while game:
     for e in event.get():
         if e.type == QUIT:
@@ -57,6 +63,12 @@ while game:
 
     if finish != True:
         window.fill(back)
+        
+        score1 = font.render(str(score_1), True, (0, 200, 0))
+        window.blit(score1, (30, 10))
+        score2 = font.render(str(score_2), True, (0, 200, 0))
+        window.blit(score2, (555, 10))
+
         racket1.update_l()
         racket2.update_r()
         ball.rect.x += speed_x
@@ -70,8 +82,13 @@ while game:
 
         if ball.rect.x < 0:
             finish = True
+            score_2 +=1
             window.blit(lose1, (200, 200))
-            game_over = True
+
+            ball.rect.x = 280
+            ball.rect.y = 250
+            ball.reset()
+            
 
 
         if ball.rect.x > win_width :
@@ -85,4 +102,3 @@ while game:
         ball.reset()
     display.update()
     clock.tick(FPS)
-
